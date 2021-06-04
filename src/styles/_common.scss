@@ -1,0 +1,23 @@
+// variables
+
+$main-green: #99cc99;
+$main-red: #cc9999;
+
+$main-background: #333;
+$main-font: #ccc;
+$main-highlight: #92c4A0;
+
+// mixins
+
+@mixin icon-before($content, $alt: 0) {
+  &:before {
+    display:inline-block;
+    font-size:110%;
+    width: 1.5rem;
+    content: $content;
+  }
+
+  @if $alt != 0 {
+    &.alt:before { content: $alt; }
+  }
+}
