@@ -20,6 +20,7 @@ h1 {
 header h1 {
   &:before { content: ''; width: 1.2em; height: 1.2em; margin-right:.3em; background: url('robot.png'); background-size:100%; border-radius:50%; display:inline-block; }
   font-size: 300%;margin:0;
+  a:hover { background: none; }
 }
 
 header, section {
@@ -46,6 +47,47 @@ header, section {
     width:2px;
     height:100%;
     background: linear-gradient(180deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: $main-highlight;
+  &:hover { background: lighten($main-background, 10%)}
+}
+
+nav {
+
+  h3 {
+    margin-bottom: .25em;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: block;
+
+      a {
+        display: block;
+        padding: .25em;
+
+        &:hover, &.active {
+          background: lighten($main-background, 10%);
+          font-weight: bold;
+        }
+      }
+
+      &:after {
+        display: block;
+        content: '';
+        height: 1px;
+        width: 100%;
+        background: linear-gradient(90deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+        //background: linear-gradient(90deg, blue 0%, red 100%);
+      }
+    }
   }
 }
 
