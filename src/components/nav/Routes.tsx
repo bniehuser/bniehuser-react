@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
 import { About, Apis, Contact, Home, Interface, Links, Toys } from '../../containers';
+import { Bombsquad } from '../../containers/toys/Bombsquad';
+import { Boxes } from '../../containers/toys/Boxes';
+import { Divide } from '../../containers/toys/Divide';
+import { Icosahedron } from '../../containers/toys/Icosahedron';
+import { WaveFunctionCollapse } from '../../containers/toys/WaveFunctionCollapse';
 
 export const Routes: FC = () => {
   return <>
@@ -10,6 +15,11 @@ export const Routes: FC = () => {
     <Route path={'/contact'} component={Contact}/>
     <Route path={'/interface'} component={Interface}/>
     <Route path={'/links'} component={Links}/>
-    <Route path={'/toys'} component={Toys}/>
+    <Route exact={true} path={'/toys'} component={Toys}/>
+    <Route path={'/toys/bombsquad'} component={Bombsquad}/>
+    <Route path={'/toys/icosahedron'} component={Icosahedron}/>
+    <Route path={'/toys/divide'} component={Divide}/>
+    <Route path={'/toys/boxes'} component={Boxes}/>
+    <Route path={'/toys/wfc'} component={WaveFunctionCollapse}/>
   </>;
 }

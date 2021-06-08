@@ -1,0 +1,14 @@
+#boxes { background:#EFEFEF;color:#121222;font-family:courier new,courier,fixed-width;overflow:hidden;-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+#console { padding:5px;border-radius:5px;box-shadow:1px 1px 2px #999999;border:1px solid #121222;position:fixed;bottom:10px;right:10px;height:200px;width:300px;background:rgba(200,200,205,.6); }
+#controls { border-radius:5px;box-shadow:1px 1px 2px #999999;border:1px solid #121222;position:absolute;top:10px;left:10px;height:350px;width:100px;background:rgba(200,200,205,.6); }
+#controls a { color:#121222; border:1px solid #121222;border-radius:5px;display:block;background:-webkit-linear-gradient(top,#dddddd 0%,#d5d5d5 50%,#d0d0d0 50%,#cccccc 100%);font-weight:bold;text-decoration:none;margin:3px;padding:3px; }
+#controls a:hover, #controls a.selected { background:-webkit-linear-gradient(top,#e2e299 0%,#dddd95 50%,#d4d48a 50%,#d0d080 100%); }
+.gridVert { position:absolute;top:0;width:1px;height:100%;background:rgba(0,0,0,.5);color:rgba(0,0,0,.5);font-size:70%; }
+.gridSubVert { position:absolute;top:0;width:1px;height:100%;background:rgba(0,0,0,.1); }
+.gridHoriz { position:absolute;left:0;height:1px;width:100%;background:rgba(0,0,0,.5);color:rgba(0,0,0,.5);font-size:70%; }
+.gridSubHoriz { position:absolute;left:0;height:1px;width:100%;background:rgba(0,0,0,.1); }
+#grid { overflow:hidden;}

@@ -1,0 +1,56 @@
+#bs_gameScreen { position:relative;margin:30px 20px; }
+#bs_gameControls { position:relative;margin:0px; }
+#bs_theBoard { position:relative;margin:0px; }
+#bs_mainTitle { position:absolute;margin:-40px 0 0 -10px;z-index:-1;color:#DDDDDD;font-size:500%; }
+#bs_settings { font-size:100%; }
+#bs_resetButt { margin-top:20px; }
+.bs_flasher { color:red !important;border:1px solid red !important; }
+.bs_butt {
+    padding:2px;
+    border:1px solid black;
+    color:black;
+    background:#dddddd;
+    border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;
+    -moz-box-shadow: 1px 1px 2px #999;
+    -webkit-box-shadow: 1px 1px 2px #999;
+    box-shadow: 1px 1px 2px #999;
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#999999')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#999999');
+}
+.bs_butt:hover { background:#efefef; }
+.bs_square {
+    z-index:1;
+    position:absolute;
+    width:19px;
+    height:19px;
+    border:1px solid black;
+    margin:0;
+    padding:0;
+    font-size:15px;
+    text-align:center;
+    vertical-align:center;
+    font-weight:bold;
+    cursor:default !important;
+    box-sizing: content-box; /* this was done in the OLDEN DAYS */
+}
+.bs_square:hover { z-index:1000000;border:2px solid black;margin:-1px; }
+.bs_bomb { background:red; }
+.bs_unclicked { background:#cccccc; }
+.bs_clicked { background:white; }
+.bs_flagged { background:#CCE3CC;color:#666; }
+.bs_question { background:#DDDDCC; }
+.bs_m1 { color:blue !important; }
+.bs_m2 { color:green !important; }
+.bs_m3 { color:red !important; }
+.bs_m4 { color:purple; }
+.bs_m5 { color:yellow; }
+.bs_m6 { color:orange; }
+.bs_m7 { color:black; }
+.bs_m8 { color:black; }
+.bs_infotext { color:#333333; }
+.bs_headInfo { border:1px solid #cccccc;padding :5px;margin:0px;float:left;margin:0px 5px;vertical-align:center;border-radius:6px;-moz-border-radius:6px;-webkit-border-radius:6px; }
+.bs_dispHead { font-size:15px;font-weight:bold;padding:5px;clear-after: both; }
+.bs_dispInp { border:1px solid #cccccc;background:#000000;font-size:20px;padding:2px;text-align:right;width:60px;color:red;border-radius:6px;-moz-border-radius:6px;-webkit-border-radius:6px; }
+.bs_smInp { border:1px solid #cccccc;background:#444;color:#ccc;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px; }

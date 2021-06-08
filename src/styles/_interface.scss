@@ -18,14 +18,15 @@ h1 {
 }
 
 header h1 {
-  &:before { content: ''; width: 1.2em; height: 1.2em; margin-right:.3em; background: url('robot.png'); background-size:100%; border-radius:50%; display:inline-block; }
+  &:before { content: ''; width: 1.8em; height: 1.8em; margin-right:.3em; background: url('robot.png'); background-size:100%; border-radius:50%; position:absolute;zIndex:-1; }
+  zIndex:1;
   font-size: 300%;margin:0;
+  a { padding-left:2em;zIndex:1;position:relative;line-height:1.6em; }
   a:hover { background: none; }
 }
 
 header, section {
-  padding: 1em;
-  padding-bottom: 0;
+  padding: .5em 1em 0;
 }
 
 #body {
@@ -33,10 +34,14 @@ header, section {
   flex-direction:row;
   padding:0;
 }
+#content {
+  padding-top: 1.5em;
+}
 #sidebar {
-  padding: 1em;
+  padding: 1.5em 1em 1em;
   margin-right: 1em;
-  flex-basis: 20em;
+  width:200px;
+  min-width:200px;
   position:relative;
   &:after {
     display:block;
@@ -47,6 +52,45 @@ header, section {
     width:2px;
     height:100%;
     background: linear-gradient(180deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #body { flex-direction:column; }
+  header { padding:0; }
+  #sidebar {
+    h3 { display:none; }
+    nav { display:block; }
+    ul { display:block; }
+    padding:0;
+    width:100%;
+    text-align:center;
+    li {
+      display: inline-block;
+      position:relative;
+      a { display:block; margin:0; padding:.25em 1em !important; }
+      &:after {
+        display:block;
+        position:absolute;
+        right:0px;
+        top:0px;
+        height:.5em;
+        content:'';
+        width:2px;
+        height:100%;
+        background: linear-gradient(180deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+      }
+      &:last-child:after { content: none; }
+    }
+    &:after {
+      display:block;
+      position:relative;
+      content:'';
+      height:2px;
+      width:100%;
+      background: linear-gradient(90deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+      //background: linear-gradient(90deg, blue 0%, red 100%);
+    }
   }
 }
 
@@ -87,6 +131,8 @@ nav {
         background: linear-gradient(90deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
         //background: linear-gradient(90deg, blue 0%, red 100%);
       }
+      &:last-child:after { content: none; }
+
     }
   }
 }

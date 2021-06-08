@@ -11655,6 +11655,11 @@ watchpack@^1.7.4:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
 
+wavefunctioncollapse@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/wavefunctioncollapse/-/wavefunctioncollapse-2.1.0.tgz#a573588800316f321833e8698cbe50a38fe3928e"
+  integrity sha512-GclizlVcMKyS2POsjrKb8sHy//NXJj3EI7957Wa+f97DtiNOsj773CzftCo59Hylvb/RBefrqtv4k0pOFfS71g==
+
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/wbuf/-/wbuf-1.7.3.tgz#c1d8d149316d3ea852848895cb6a0bfe887b87df"

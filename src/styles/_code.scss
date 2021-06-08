@@ -1,4 +1,12 @@
-code { display: block; padding: 1em; white-space: pre-wrap !important; }
+code {
+  display: block; padding: 1em; white-space: pre-wrap !important;
+  &.inlineCode {
+    display: inline;
+    padding:0;
+    background: #282c34;
+    color: #abb2bf;
+  }
+}
 
 /*
 NOTE -- directly taken from highlight.js code style, ported here for use on site
