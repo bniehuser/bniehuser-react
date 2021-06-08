@@ -16,10 +16,16 @@ export const About: FC = () => {
     <p>
       We've come a long, long way since then.  I went from procedural Perl script outputs to writing my own object-oriented Perl modules and libraries for generating templated websites.  Built product management systems and rudimentary CMSs, building and administering complex MySQL databases to store and track the data.
       I moved from Perl into an array of other scripting languages, including ASP, PHP, Python, Node, and others.  These days most of my server side work is PHP using Symfony framework and PostgreSQL back end, although I've done a bit of toying with Python using Django for a few sites and Flask for a couple APIs (including the one behind this site).
-
+      I write and manage applications, datastores, and their associated server components, so I've done quite a bit of daemon programming and deployment management as well.  I'm a fan of robust logging infrastructure and frequent performance testing and code profiling.  There's always a way to tune your systems a little smarter, a little tighter.
     </p>
     <p>
-      At some point my love of databases and normalized data branched off into a variety of other data storage and data communication arenas.  I became really interested in data pipelines, cache systems, event-driven communications,
+      At some point my love of databases and normalized data branched off into a variety of other data storage and data communication arenas.  I became really interested in data pipelines, cache systems, event-driven communications, email and messaging system automation, API integrations, and other aspects of deeper systems engineering.
+      I've written my share of socket servers, message brokers, and data transformers.  I've integrated systems with various payment processors, product databases, scheduling systems, and accounting platforms.  I've learned virtual environments, from local environment Docker stacks to AWS CloudFormation deployments.  I've dealt with raw packet communications from hardware devices both over TCP and UDP, as well as raw Bluetooth communication.
+      I really enjoy seeing disparate systems working together, and blending different approaches to optimize data access and transfer.
+    </p>
+
+    <p>On the front end, I've never been much of a designer (obviously), but I've always enjoyed working on user interfaces, since the days of slicing photoshop files into table based layouts on up to dynamic data administration portals.  I enjoy using all the technology the browser has to offer to craft websites
+      that are slick, functional, and performant.  I've kept up with all the standards and display frameworks, using Bootstrap, Material Design, Kendo UI, and Ant Designs.  I remember thinking CSS was a fad, and now I can't imagine building a website that didn't use a SASS preprocessor.
     </p>
 
     <p>I've had a long time love for Javascript.  I've been toying with Dynamic HTML since back when it was like magic, long before the rise of jQuery.  I built several of my own libraries to ease DOM manipulation and implement rudimentary animation and interactivity in sites.
