@@ -24,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "codegen": "openapi --input http://localhost:8000/api/v1/openapi.json --output ./src/openapi --exportSchemas true --useUnionTypes --useOptions"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +48,7 @@
   "devDependencies": {
     "@types/react-highlight": "^0.12.2",
     "@types/react-router-dom": "^5.1.7",
+    "openapi-typescript-codegen": "^0.9.3",
     "sass-loader": "^12.0.0"
   }
 }

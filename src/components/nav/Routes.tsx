@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
 import { About, Apis, Contact, Home, Interface, Links, Toys } from '../../containers';
+import { Stocks } from '../../containers/apis/Stocks';
 import { Bombsquad } from '../../containers/toys/Bombsquad';
 import { Boxes } from '../../containers/toys/Boxes';
 import { Divide } from '../../containers/toys/Divide';
@@ -11,7 +12,8 @@ export const Routes: FC = () => {
   return <>
     <Route exact={true} path={'/'} component={Home}/>
     <Route path={'/about'} component={About}/>
-    <Route path={'/apis'} component={Apis}/>
+    <Route exact={true} path={'/apis'} component={Apis}/>
+    <Route path={'/apis/stocks'} component={Stocks}/>
     <Route path={'/contact'} component={Contact}/>
     <Route path={'/interface'} component={Interface}/>
     <Route path={'/links'} component={Links}/>

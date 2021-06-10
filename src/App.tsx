@@ -4,6 +4,9 @@ import './styles/style.scss';
 import { Menu } from './components/nav/Menu';
 import { Routes } from './components/nav/Routes';
 
+import { OpenAPI } from './openapi';
+
+OpenAPI.BASE = 'http://localhost:8000'; // THIS SHOULD BE AN ENV VAR
 
 
 const App: FC = () => {
