@@ -9,6 +9,6 @@ export const Interface: FC = () => {
       It utilizes some of the API data from the <Link to={'/apis'}>APIs</Link> section of the site for panel contents, and allows you to arrange a persistent dashboard as well as launch one-off subwindows within the interface.<br/>
       Give it a shot!
     </p>
-    <Link to={'./dashboard'}>Dashboard Experiment</Link>
+    <Link to={'/interface/dashboard'}>Dashboard Experiment</Link>
   </div>;
 }

@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import { About, Apis, Contact, Home, Interface, Links, Toys } from '../../containers';
 import { Recipes } from '../../containers/apis/Recipes';
 import { Stocks } from '../../containers/apis/Stocks';
+import { Dashboard } from '../../containers/interface/Dashboard';
 import { Bombsquad } from '../../containers/toys/Bombsquad';
 import { Boxes } from '../../containers/toys/Boxes';
 import { Divide } from '../../containers/toys/Divide';
@@ -17,7 +18,8 @@ export const Routes: FC = () => {
     <Route path={'/apis/stocks'} component={Stocks}/>
     <Route path={'/apis/recipes'} component={Recipes}/>
     <Route path={'/contact'} component={Contact}/>
-    <Route path={'/interface'} component={Interface}/>
+    <Route exact={true} path={'/interface'} component={Interface}/>
+    <Route path={'/interface/dashboard'} component={Dashboard}/>
     <Route path={'/links'} component={Links}/>
     <Route exact={true} path={'/toys'} component={Toys}/>
     <Route path={'/toys/bombsquad'} component={Bombsquad}/>

@@ -1,0 +1,14 @@
+@import "common";
+
+.dash-container {
+  background:darken($main-background, 50%);
+  padding:.25em;
+}
+.dash-panel {
+  display: flex;
+  div.dash-leaf {
+    margin: .25em;
+    padding: .5em;
+    background: darken($main-background, 10%);
+  }
+}
