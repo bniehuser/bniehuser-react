@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import Highlight from 'react-highlight';
+import { Link } from 'react-router-dom';
 
 const fib: (n: number, l?: number[]) => number = (n, l=[0,1]) => l[n] !== undefined ? l[n] : (l[n] = fib(n-1, l) + fib(n-2, l));
 // const fibSlow: (n: number) => number = n => n < 2 ? n : fibSlow(n-1) + fibSlow(n-2);
@@ -8,10 +9,18 @@ export const Home: FC = () => {
   const [fibVal, setFib] = useState(0);
   return <div>
     <h2>Hey there, welcome to my site.</h2>
+    <div className={'interface'} style={{margin:'0 0 1.5em 0',padding:'1em',background:'rgba(0,0,0,.2)',border:0}}>
+      Feel free to check out my <Link to={'/interface/dashboard'}>Dashboard Builder Experiment</Link>, or a couple of <Link to={'/apis'}>API Integrations</Link> that fuel it.<br/>
+      Or you could play with my <Link to={'/toys/wfc'}>Wave Function Collapse procedural texture generator</Link>.<br/>
+      If you want to talk to me you can <Link to={'/contact'}>chat with me via my websocket/discord bot proxy</Link> (you probably just got a little 'connected' toast about it).<br/>
+      <br/>
+      If you want to hear me ramble on endlessly you can read <Link to={'/about'}>all about my history as a coder</Link>, or just continue on through the rant below.
+    </div>
+    <h3>Rant About Memoized Recursion</h3>
     <p>
       So, the other day I was looking at memoized recursion as a performance enhancement; something I had implemented in the past without realizing there was a name for it.
       I wondered how concisely I could add the memoization to an otherwise disastrously bad recursive algorithm in typescript.</p>
-    <p>I chose a fibonacci number finder, since its naive implementation is really inefficient (like <code className={'inlineCode'}>O(2<sup>n</sup>)</code> inefficient).  Here's a one-liner to do it the naive way:</p>
+    <p>I chose a fibonacci number finder; since its naive implementation is really inefficient (like <code className={'inlineCode'}>O(2<sup>n</sup>)</code> inefficient) it's a classic example used to demonstrate the technique.  Here's a one-liner to do it the naive way:</p>
     <Highlight className={'typescript'}>
       {`const fibSlow: (n: number) => number = n => n < 2 ? n : fibSlow(n-1) + fibSlow(n-2);
 let seqNum = fibSlow(87);
@@ -39,7 +48,7 @@ let seqNum = fib(87);
       It's not pretty, but that wasn't the intent.
     </p>
     <p>
-      I spent about 30 seconds writing the function, and about 10 minutes debugging it, mainly because for some
+      I spent about 30 seconds writing the function, and about 5 minutes debugging it, mainly because for some
       reason <a href={'https://www.google.com/search?q=87th+number+in+fibonacci+sequence'} target={'_blank'} rel="noreferrer">a google search for the 87th fibonacci sequence number</a> (the number I randomly happened to be testing) inexplicably leads
       to <a href={'https://www.thelearningpoint.net/home/mathematics/fibonacci-numbers/fibonacci-numbers-87th'} target={'_blank'} rel="noreferrer">a page displaying the wrong answer</a>.  Turns out I wrote it right the first time.
     </p>

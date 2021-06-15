@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { useDashboard } from '../../context/DashboardContext';
+import { PrivateChat } from '../chat/PrivateChat';
+import { PublicChat } from '../chat/PublicChat';
 import { RandomView } from '../data-views/RandomView';
 import { RecipeView } from '../data-views/RecipeView';
 import { StockView } from '../data-views/StockView';
@@ -66,8 +68,10 @@ export const Content: FC<Props> = ({config, parent}) => {
           return <StockView {...config?.arguments}/>;
         case 'recipe':
           return <RecipeView {...config?.arguments}/>;
-        // case 'chat':
-        //   return <Stock {...config?.arguments}/>;
+        case 'publicChat':
+          return <PublicChat/>;
+        case 'privateChat':
+          return <PrivateChat/>;
         // case 'dm':
         //   return <Stock {...config?.arguments}/>;
         case 'random':
@@ -76,7 +80,9 @@ export const Content: FC<Props> = ({config, parent}) => {
           return <>
             <button onClick={() => setDashNode(config, [{...config, component: 'random'}])}>Random</button>
             <button onClick={() => setDashNode(config, [{...config, component: 'recipe'}])}>Recipe</button>
-            <button onClick={() => setDashNode(config, [{...config, component: 'stock', arguments: {ticker:'APPL'}}])}>Stock</button>
+            <button onClick={() => setDashNode(config, [{...config, component: 'stock', arguments: {ticker:'AMC'}}])}>Stock</button>
+            <button onClick={() => setDashNode(config, [{...config, component: 'publicChat'}])}>Public Chat</button>
+            <button onClick={() => setDashNode(config, [{...config, component: 'privateChat'}])}>Private Chat</button>
           </>;
       }
     })()}

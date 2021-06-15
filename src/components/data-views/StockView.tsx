@@ -11,7 +11,8 @@ type Props = {
 
 const r = (n: number): number => Math.round(n*100)/100;
 
-export const StockView: FC<Props> = ({data, ticker}) => {
+export const StockView: FC<Props> = ({data, ticker: tick}) => {
+  const [ticker] = useState<string|undefined>(tick);
   const [series, setSeries] = useState<{series: SeriesData[], linear: SeriesData[]}>({series:[], linear:[]});
   const [stock, setStock] = useState<Stock|undefined>(data);
 
