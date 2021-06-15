@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 export const Menu: FC = () => {
   return <nav>
-    <h3>Sections</h3>
     <ul>
+      <li><NavLink exact={true} activeClassName={'active'} to={'/'}>home</NavLink></li>
       <li><NavLink activeClassName={'active'} to={'/about'}>about me</NavLink></li>
       <li><NavLink activeClassName={'active'} to={'/apis'}>apis</NavLink></li>
       <li><NavLink activeClassName={'active'} to={'/interface'}>interface</NavLink></li>
