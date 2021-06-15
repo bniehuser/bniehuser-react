@@ -6,6 +6,9 @@ $main-red: #cc9999;
 $main-background: #333;
 $main-font: #ccc;
 $main-highlight: darken(#96d4A4,18%);
+$dark-highlight: darken($main-highlight, 30%);
+
+$title-font-family: 'Libre Franklin';
 
 // mixins
 

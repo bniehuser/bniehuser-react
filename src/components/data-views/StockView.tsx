@@ -23,7 +23,7 @@ export const StockView: FC<Props> = ({data, ticker}) => {
     if(ticker && !stock) {
       getStock(ticker);
     }
-  }, [])
+  }, [ticker])
 
   useEffect(() => {
     if(stock) {
@@ -46,10 +46,12 @@ export const StockView: FC<Props> = ({data, ticker}) => {
     }
   }, [stock]);
 
-  if(!stock || inProgress) {
+  if(inProgress) {
     return <>Loading...</>;
   } else if(error) {
     return <div><strong style={{color:'red'}}>Error:</strong> {error}</div>;
+  } else if(!stock) {
+    return <div><strong style={{color:'red'}}>Error:</strong> unable to load stock</div>;
   } else {
     return <>
       <div style={{display: 'flex', flexDirection: 'column', margin: '.25em'}}>

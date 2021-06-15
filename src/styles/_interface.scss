@@ -12,7 +12,7 @@ h1 {
     content:'';
     height:2px;
     width:100%;
-    background: linear-gradient(90deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+    background: linear-gradient(90deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
     //background: linear-gradient(90deg, blue 0%, red 100%);
   }
 }
@@ -52,7 +52,7 @@ header, section {
     content:'';
     width:2px;
     height:100%;
-    background: linear-gradient(180deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+    background: linear-gradient(180deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
   }
 }
 
@@ -79,7 +79,7 @@ header, section {
         content:'';
         width:2px;
         height:100%;
-        background: linear-gradient(180deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+        background: linear-gradient(180deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
       }
       &:last-child:after { content: none; }
     }
@@ -89,7 +89,7 @@ header, section {
       content:'';
       height:2px;
       width:100%;
-      background: linear-gradient(90deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+      background: linear-gradient(90deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
       //background: linear-gradient(90deg, blue 0%, red 100%);
     }
   }
@@ -129,7 +129,7 @@ nav {
         content: '';
         height: 1px;
         width: 100%;
-        background: linear-gradient(90deg, $main-highlight 25%, fade-out($main-font, 1) 100%);
+        background: linear-gradient(90deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
         //background: linear-gradient(90deg, blue 0%, red 100%);
       }
       &:last-child:after { content: none; }

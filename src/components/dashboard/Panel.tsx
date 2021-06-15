@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
-import { ContentSelector } from './ContentSelector';
+import { Content } from './Content';
 import { DashLeaf, DashNode } from './types';
 
 type Props = {
-  content: DashNode
+  node: DashNode
 }
 
-export const Panel: FC<Props> = ({content}) => {
-  return <div className={'dash-panel'} style={{flexDirection: content.orientation, flexBasis: content.size}}>
-    {content.nodes.map(n => (n as DashNode).nodes?.length ? <Panel content={n as DashNode}/> : <ContentSelector config={n as DashLeaf}/>)}
+export const Panel: FC<Props> = ({node}) => {
+  return <div className={'dash-panel'} style={{flexDirection: node.orientation, flexBasis: node.size}}>
+    {node.nodes.map(n => (n as DashNode).nodes?.length ? <Panel node={n as DashNode}/> : <Content config={n as DashLeaf} parent={node}/>)}
   </div>;
 }

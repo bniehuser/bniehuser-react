@@ -6,9 +6,51 @@
 }
 .dash-panel {
   display: flex;
-  div.dash-leaf {
+  .dash-leaf {
     margin: .25em;
     padding: .5em;
     background: darken($main-background, 10%);
+    .dash-panel-title {
+      background: darken($main-background, 15%);
+      font-family:$title-font-family;
+      font-variation-settings: 'wght' 700;
+      border-bottom:1px solid $dark-highlight;
+      margin:-.5em -.5em .5em -.5em;
+      padding:.25em;
+      .dash-panel-button-tray {
+        float:right;
+        .hidden {
+          display:none;
+        }
+        .dash-panel-button {
+          padding:.2rem;
+          border:0;
+          margin:0;
+          font-weight:bold;
+          &:hover {
+            background: rgba(255,255,255,.1);
+          }
+        }
+        &:hover {
+          .dash-panel-button {
+            display:none;
+          }
+          .hidden { display:inline-block; }
+        }
+      }
+    }
+  }
+}
+
+.dash-window {
+  position: absolute;
+  box-shadow: 0 0 5px 5px #1a1a1a;
+  padding:.25em;
+  .dash-window-title {
+    font-family:$title-font-family;
+    font-variation-settings: 'wght' 700;
+    .dash-window-button {
+
+    }
   }
 }
