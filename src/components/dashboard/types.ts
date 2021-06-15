@@ -7,6 +7,7 @@ export type DashNode = {
 export type DashLeaf = {
   size: number|string;
   component: string; // should be better qualified
+  name: string;
   arguments: {
     [key: string]: any
   }

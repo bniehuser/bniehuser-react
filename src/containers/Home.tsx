@@ -9,7 +9,7 @@ export const Home: FC = () => {
   const [fibVal, setFib] = useState(0);
   return <div>
     <h2>Hey there, welcome to my site.</h2>
-    <div className={'interface'} style={{margin:'0 0 1.5em 0',padding:'1em',background:'rgba(0,0,0,.2)',border:0}}>
+    <div className={'callout'}>
       Feel free to check out my <Link to={'/interface/dashboard'}>Dashboard Builder Experiment</Link>, or a couple of <Link to={'/apis'}>API Integrations</Link> that fuel it.<br/>
       Or you could play with my <Link to={'/toys/wfc'}>Wave Function Collapse procedural texture generator</Link>.<br/>
       If you want to talk to me you can <Link to={'/contact'}>chat with me via my websocket/discord bot proxy</Link> (you probably just got a little 'connected' toast about it).<br/>

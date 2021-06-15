@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode, ReactNodeArray, useState } from 'react';
 import { useDashboard } from '../../context/DashboardContext';
 import { PrivateChat } from '../chat/PrivateChat';
 import { PublicChat } from '../chat/PublicChat';
@@ -8,23 +8,44 @@ import { StockView } from '../data-views/StockView';
 import { DashLeaf, DashNode } from './types';
 
 type Props = {
-  config: DashLeaf
-  parent: DashNode
+  config: DashLeaf;
+  parent: DashNode;
 }
+
+type ListingProps = {
+  name: string;
+  opts?: ReactNode|ReactNodeArray;
+  onClick: () => void;
+}
+
+
+const AddListing: FC<ListingProps> = p =>
+  <div className={'panel-option'}>
+    <div className={'panel-option-title'}>
+      {p.name}
+    </div>
+    <div className={'panel-option-input'}>
+      {p.opts}
+    </div>
+    <button onClick={p.onClick}>insert</button>
+  </div>;
 
 export const Content: FC<Props> = ({config, parent}) => {
   const [dash,setDashNode] = useDashboard();
+  const [newRecipeSearch, setNewRecipeSearch] = useState<string>('chimichanga');
+  const [newTicker, setNewTicker] = useState<string>('AMC');
+  const [newRandomParagraphs, setNewRandomParagraphs] = useState<string>('');
   const findParent = (n: DashNode|DashLeaf, d: DashNode = dash): DashNode|DashLeaf|undefined => d.nodes?.indexOf(n) > -1 ? d : d.nodes?.reduce((a, s) => a || findParent(n, s as DashNode));
   const split = (direction: 'row'|'column') => {
     if(parent.orientation === direction) {
       const size = (parseFloat(config?.size as string || '0')/2) + '%';
-      setDashNode(config, [{...config, size} as DashLeaf, {size, component:'',arguments:{}} as DashLeaf]);
+      setDashNode(config, [{...config, size} as DashLeaf, {size, name:'Select...', component:'',arguments:{}} as DashLeaf]);
     } else {
 
       setDashNode(config, [{
         size:config.size,
         orientation: direction,
-        nodes: [{...config, size:'50%'}, {size:'50%',component:'',arguments:{}}]
+        nodes: [{...config, size:'50%'}, {size:'50%',component:'',name:'Select...',arguments:{}}]
       }]);
     }
   }
@@ -51,10 +72,14 @@ export const Content: FC<Props> = ({config, parent}) => {
 
   }
 
+  const startResize = (e: React.MouseEvent, config: DashNode|DashLeaf, dir: 'horizontal'|'vertical') => {
+    // now what though?
+  }
+
   const type = config?.component;
-  return <div className={'dash-leaf'} style={{flexBasis: config?.size}}><div style={{display:'block'}}>
+  return <div className={'dash-leaf'} style={{flexBasis: config?.size, position:'relative'}}><div style={{display:'block',position:'relative'}}>
     <div className={'dash-panel-title'}>
-      {type || 'select contents'}
+      {config?.name || 'select contents'}
       <div className={'dash-panel-button-tray'}>
         <button className={'dash-panel-button hidden'} onClick={splitHorizontal}>—</button>
         <button className={'dash-panel-button hidden'} onClick={splitVertical}>|</button>
@@ -64,27 +89,46 @@ export const Content: FC<Props> = ({config, parent}) => {
     </div>
     {(() => {
       switch(type) {
-        case 'stock':
-          return <StockView {...config?.arguments}/>;
         case 'recipe':
           return <RecipeView {...config?.arguments}/>;
+        case 'stock':
+          return <StockView {...config?.arguments}/>;
         case 'publicChat':
           return <PublicChat/>;
         case 'privateChat':
           return <PrivateChat/>;
-        // case 'dm':
-        //   return <Stock {...config?.arguments}/>;
         case 'random':
           return <RandomView {...config?.arguments}/>;
         default:
-          return <>
-            <button onClick={() => setDashNode(config, [{...config, component: 'random'}])}>Random</button>
-            <button onClick={() => setDashNode(config, [{...config, component: 'recipe'}])}>Recipe</button>
-            <button onClick={() => setDashNode(config, [{...config, component: 'stock', arguments: {ticker:'AMC'}}])}>Stock</button>
-            <button onClick={() => setDashNode(config, [{...config, component: 'publicChat'}])}>Public Chat</button>
-            <button onClick={() => setDashNode(config, [{...config, component: 'privateChat'}])}>Private Chat</button>
-          </>;
+          return <div className={'panel-selector'}>
+            <AddListing
+              name={'Recipe'}
+              opts={<>search:  <input size={10} value={newRecipeSearch} onChange={e => setNewRecipeSearch(e.target.value)}/></>}
+              onClick={() => setDashNode(config, [{...config, name:`Recipe: ${newRecipeSearch}`, component: 'recipe', arguments: { search: newRecipeSearch}}])}
+            />
+            <AddListing
+              name={'Stock'}
+              opts={<>ticker:  <input size={4} value={newTicker} onChange={e => setNewTicker(e.target.value)}/></>}
+              onClick={() => setDashNode(config, [{...config, name:`Stock: ${newTicker}`, component: 'stock', arguments: { ticker: newTicker }}])}
+            />
+            <AddListing
+              name={'Public Chat'}
+              onClick={() => setDashNode(config, [{...config, name:'Public Chat', component: 'publicChat'}])}
+            />
+            <AddListing
+              name={'Private Chat'}
+              onClick={() => setDashNode(config, [{...config, name:'Private Chat', component: 'privateChat'}])}
+            />
+            <AddListing
+              name={'Random'}
+              opts={<>paragraphs: <input type={'number'} size={2} style={{width:'50px'}} value={newRandomParagraphs} onChange={e => setNewRandomParagraphs(e.target.value)}/><span style={{fontSize:'75%'}}>(blank for random)</span></>}
+              onClick={() => setDashNode(config, [{...config, name:`Random${newRandomParagraphs ? `: ${newRandomParagraphs}` : ''}`, component: 'random', arguments: { paragraphs: newRandomParagraphs ? parseInt(newRandomParagraphs, 10) : undefined}}])}
+            />
+          </div>;
       }
     })()}
-  </div></div>;
+  </div>
+    <div className={'panel-right-shim'} onMouseDown={e => startResize(e, config, 'vertical')}/>
+    <div className={'panel-bottom-shim'} onMouseDown={e => startResize(e, config, 'horizontal')}/>
+  </div>;
 }

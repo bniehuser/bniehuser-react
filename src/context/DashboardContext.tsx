@@ -8,13 +8,13 @@ const initTree: DashNode = {
   nodes:[
     {size: '100%', orientation: 'column', nodes: [
         {size: '50%', orientation: 'row', nodes: [
-            {size: '33%', component: 'stock', arguments: {ticker: 'GOOG'}},
-            {size: '33%', component: 'random', arguments: {}},
-            {size: '33%', component: 'random', arguments: {}},
+            {size: '33%', name: 'Stock: GOOG', component: 'stock', arguments: {ticker: 'GOOG'}},
+            {size: '33%', name: 'Random', component: 'random', arguments: {}},
+            {size: '33%', name: 'Public Chat', component: 'publicChat', arguments: {}},
           ]},
         {size: '50%', orientation: 'row', nodes: [
-            {size: '50%', component: 'random', arguments: {}},
-            {size: '50%', component: 'stock', arguments: {ticker: 'GME'}},
+            {size: '50%', name: 'Random', component: 'random', arguments: {}},
+            {size: '50%', name: 'Stock: GME', component: 'stock', arguments: {ticker: 'GME'}},
           ]},
       ]},
   ]

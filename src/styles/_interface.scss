@@ -98,7 +98,7 @@ header, section {
 a {
   text-decoration: none;
   color: $main-highlight;
-  &:hover { background: lighten($main-background, 10%)}
+  &:hover { background: darken($main-background, 2%)}
 }
 
 nav {
@@ -118,8 +118,13 @@ nav {
         display: block;
         padding: .25em;
 
-        &:hover, &.active {
-          background: lighten($main-background, 10%);
+        &:hover {
+          background: linear-gradient(90deg, darken($main-background, 2%) 25%, fade-out($main-font, 1) 100%);
+          font-weight: bold;
+        }
+        &.active {
+          background: linear-gradient(90deg, darken($main-background, 5%) 25%, fade-out($main-font, 1) 100%);
+//          background: darken($main-background, 5%);
           font-weight: bold;
         }
       }
@@ -224,6 +229,12 @@ button {
     background:fade_out($main-font, .66);
     color:lighten($main-font, 15%);
   }
+}
+
+.callout {
+  background: darken($main-background, 5%);
+  margin:0 0 1em 0;
+  padding:1em;
 }
 
 $if-dark: fade_out(darken($main-background, 50%), .5);

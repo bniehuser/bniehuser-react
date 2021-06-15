@@ -54,3 +54,51 @@
     }
   }
 }
+
+.panel-selector {
+  display: flex;
+  flex-direction: column;
+  background:darken($main-background, 50%);
+  padding:1px;
+  .panel-option {
+    margin:1px;
+    padding:0;
+    display: flex;
+    flex-direction: row;
+    background: darken($main-background, 10%);
+    .panel-option-title {
+      padding: .5em;
+      flex-basis:200px;
+      font-family:$title-font-family;
+      font-variation-settings: 'wght' 700;
+    }
+    .panel-option-input {
+      padding: .5em;
+      flex-basis:100%;
+      input {
+        border:0;height:100%;padding:.5em 1em;border-radius:0;background:darken($main-background, 15%);color:$main-font;outline:none;
+        &::placeholder { color:darken($main-font,25%); opacity:1; }
+      }
+    }
+    button {
+      border:0;
+      padding:.5em 1em;
+      line-height:1em;
+      border-radius:0;
+      margin:0;
+      background: darken($main-background, 15%);
+      &:hover { background: lighten($main-background, 5%); }
+      border-left:1px solid $dark-highlight;
+      flex-basis:100px;
+    }
+  }
+}
+
+.panel-right-shim {
+  width:.5em;margin-right:-.5em;height:100%;position:absolute;right:0;top:0;bottom:0;
+  cursor: col-resize;
+}
+.panel-bottom-shim {
+  height:.5em;margin-bottom:-.5em;;width:100%;position:absolute;right:0;left:0;bottom:0;
+  cursor: row-resize;
+}

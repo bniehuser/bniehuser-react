@@ -10,9 +10,13 @@ type RandomContent = {
   }>
 };
 
-const createRandomContent = (): RandomContent => {
+type Props = {
+  paragraphs?: number
+}
+
+const createRandomContent = (paragraphs?: number): RandomContent => {
   const content: RandomContent = { paragraphs: [] };
-  const numP = chance.integer({min: 1, max: 5});
+  const numP = paragraphs || chance.integer({min: 1, max: 5});
   for(let i = 0; i < numP; i++) {
     content.paragraphs.push({
       title: chance.sentence({words: chance.integer({min: 3, max: 8})}),
@@ -22,7 +26,7 @@ const createRandomContent = (): RandomContent => {
   return content;
 }
 
-export const RandomView: FC = () => {
-  const [content] = useState<RandomContent>(createRandomContent());
+export const RandomView: FC<Props> = ({paragraphs}) => {
+  const [content] = useState<RandomContent>(createRandomContent(paragraphs));
   return <>{content.paragraphs.map(p => <div><h3>{p.title}</h3><p>{p.data}</p></div>)}</>;
 }
