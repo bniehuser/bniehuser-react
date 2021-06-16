@@ -103,7 +103,7 @@ export const Content: FC<Props> = ({config, parent}) => {
         testy.style.width = rect.width+'px';
         testy.style.height = rect.height+'px';
         document.getElementsByTagName('body')[0].appendChild(testy);
-        const s = parseFloat(parent.size.toString());
+        const s = parseFloat(lastCheck?.size.toString() || '1');
         const rs = dir === 'horizontal' ? rect.height : rect.width;
         const oX = e.clientX;
         const oY = e.clientY;
@@ -129,19 +129,19 @@ export const Content: FC<Props> = ({config, parent}) => {
           const lci = (parent as DashNode)?.nodes?.indexOf(lastCheck as DashNode);
           if(lci>-1) {
             const ss = scale -1;
+            const rem = (parent as DashNode)?.nodes?.length-(lci+1);
             (parent as DashNode)?.nodes?.forEach((n, i) => {
-              if((i < lci && ss < 0) || (i > lci && ss > 0)) {
-                n.size = (parseFloat(n.size.toString()) * (1+(ss/lci)))+'%';
-                setDashNode(n, [{...n, size: (parseFloat(n.size.toString()) * (1+(ss/lci)))+'%'}]);
-              } else if(i === lci) {
+              if(i === lci) {
                 setDashNode(n, [{...n, size: fscale+'%'}]);
+              } else if(rem && lci < i) {
+                n.size = (parseFloat(n.size.toString()) * (1+(ss/rem)))+'%';
+                setDashNode(n, [{...n, size: (parseFloat(n.size.toString()) * (1+(ss/rem)))+'%'}]);
               }
             })
             if(ss>0) {
 
             }
           }
-          setDashNode(lastCheck as DashNode, [{...(lastCheck as DashNode), size: fscale+'%'}]);
           document.removeEventListener('mousemove', mm);
           document.removeEventListener('mouseup', rm);
         }
@@ -154,8 +154,11 @@ export const Content: FC<Props> = ({config, parent}) => {
     return false;
   }
 
+  const styles: React.CSSProperties = {};
+  if(parent.orientation === 'row') { styles.width = config.size; }
+  if(parent.orientation === 'column') { styles.height = config.size; }
   const type = config?.component;
-  return <div className={'dash-leaf'} style={{flexBasis: config?.size, position:'relative'}}><div style={{display:'block',position:'relative'}}>
+  return <div className={'dash-leaf'} style={{...styles, position:'relative'}}><div style={{display:'block',position:'relative'}}>
     <div className={'dash-panel-title'}>
       {config?.name || 'select contents'}
       <div className={'dash-panel-button-tray'}>
