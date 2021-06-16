@@ -73,7 +73,85 @@ export const Content: FC<Props> = ({config, parent}) => {
   }
 
   const startResize = (e: React.MouseEvent, config: DashNode|DashLeaf, dir: 'horizontal'|'vertical') => {
-    // now what though?
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    e.nativeEvent.cancelBubble = true;
+    e.nativeEvent.returnValue = false;
+    // now what though? i guess we pass through to the context provider?
+    const rect = (e.target as HTMLDivElement)?.parentElement?.getBoundingClientRect();
+    if(rect) {
+      let parent: DashNode|DashLeaf|undefined;
+      let checker = findParent(findParent(config) || config);
+      let lastCheck = checker;
+      while(checker && (parent === undefined)) {
+        if(dir === 'horizontal' && (checker as DashNode).orientation === 'column') {
+          parent = checker;
+        } else if(dir === 'vertical' && (checker as DashNode).orientation === 'row') {
+          parent = checker;
+        } else {
+          lastCheck = checker;
+          checker = findParent(checker);
+        }
+      }
+      if(parent) {
+        const testy = document.createElement('div');
+        testy.style.position = 'absolute';
+        testy.style.background = 'rgba(66,66,66,.25)';
+        testy.style.border = '2px dashed rgba(132,132,132,.6)';
+        testy.style.top = rect.y+'px';
+        testy.style.left = rect.x+'px';
+        testy.style.width = rect.width+'px';
+        testy.style.height = rect.height+'px';
+        document.getElementsByTagName('body')[0].appendChild(testy);
+        const s = parseFloat(parent.size.toString());
+        const rs = dir === 'horizontal' ? rect.height : rect.width;
+        const oX = e.clientX;
+        const oY = e.clientY;
+        let fscale = s;
+        let os = 0;
+        let scale = 1;
+        const mm = (e: MouseEvent) => {
+          os = dir === 'horizontal' ? e.clientY - oY : e.clientX - oX;
+          scale = (rs+os)/rs;
+          if(dir === 'horizontal') {
+            testy.style.height = (rs+os)+'px';
+          } else {
+            testy.style.width = (rs+os)+'px';
+          }
+          fscale = s * scale;
+          // can we do this all the time?
+          // setDashNode(parent as DashNode, [{...(parent as DashNode), size: fscale+'%'}]);
+        };
+        const rm = () => {
+          console.error('old/new settings', s, fscale);
+          console.error('old/new pixels', rs, rs + os);
+          testy?.parentElement?.removeChild(testy);
+          const lci = (parent as DashNode)?.nodes?.indexOf(lastCheck as DashNode);
+          if(lci>-1) {
+            const ss = scale -1;
+            (parent as DashNode)?.nodes?.forEach((n, i) => {
+              if((i < lci && ss < 0) || (i > lci && ss > 0)) {
+                n.size = (parseFloat(n.size.toString()) * (1+(ss/lci)))+'%';
+                setDashNode(n, [{...n, size: (parseFloat(n.size.toString()) * (1+(ss/lci)))+'%'}]);
+              } else if(i === lci) {
+                setDashNode(n, [{...n, size: fscale+'%'}]);
+              }
+            })
+            if(ss>0) {
+
+            }
+          }
+          setDashNode(lastCheck as DashNode, [{...(lastCheck as DashNode), size: fscale+'%'}]);
+          document.removeEventListener('mousemove', mm);
+          document.removeEventListener('mouseup', rm);
+        }
+        document.addEventListener('mousemove', mm)
+        document.addEventListener('mouseup', rm)
+      } else {
+        console.error('could not find parent');
+      }
+    }
+    return false;
   }
 
   const type = config?.component;
