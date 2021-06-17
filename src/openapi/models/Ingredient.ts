@@ -7,7 +7,7 @@ export type Ingredient = {
     image: string;
     name: string;
     name_clean: string;
-    consistency: string;
+    consistency?: string;
     original: string;
     original_name: string;
     amount: number;

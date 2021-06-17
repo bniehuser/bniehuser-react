@@ -3,6 +3,7 @@ import { useDashboard } from '../../context/DashboardContext';
 import { PrivateChat } from '../chat/PrivateChat';
 import { PublicChat } from '../chat/PublicChat';
 import { RandomView } from '../data-views/RandomView';
+import { RecipeSearchView } from '../data-views/RecipeSearchView';
 import { RecipeView } from '../data-views/RecipeView';
 import { StockView } from '../data-views/StockView';
 import { DashLeaf, DashNode } from './types';
@@ -41,7 +42,6 @@ export const Content: FC<Props> = ({config, parent}) => {
       const size = (parseFloat(config?.size as string || '0')/2) + '%';
       setDashNode(config, [{...config, size} as DashLeaf, {size, name:'Select...', component:'',arguments:{}} as DashLeaf]);
     } else {
-
       setDashNode(config, [{
         size:config.size,
         orientation: direction,
@@ -158,8 +158,8 @@ export const Content: FC<Props> = ({config, parent}) => {
   if(parent.orientation === 'row') { styles.width = config.size; }
   if(parent.orientation === 'column') { styles.height = config.size; }
   const type = config?.component;
-  return <div className={'dash-leaf'} style={{...styles, position:'relative'}}><div style={{display:'block',position:'relative'}}>
-    <div className={'dash-panel-title'}>
+  return <div className={'dash-leaf'} style={{...styles, position:'relative'}}><div style={{display:'flex',flexDirection:'column'}}>
+    <div className={'dash-panel-title'} style={{flexBasis:'1.5em'}}>
       {config?.name || 'select contents'}
       <div className={'dash-panel-button-tray'}>
         <button className={'dash-panel-button hidden'} onClick={splitHorizontal}>—</button>
@@ -168,10 +168,15 @@ export const Content: FC<Props> = ({config, parent}) => {
         <button className={'dash-panel-button'}>⚙</button>
       </div>
     </div>
+    <div className={'scrollable'} style={{flexBasis: '100%'}}>
     {(() => {
       switch(type) {
+        case 'recipe-search':
+          return <RecipeSearchView {...{search: '', ...config?.arguments, onSelect: r => {
+              setDashNode(config, [{...config, name:`Recipe: ${r.title}`, component: 'recipe', arguments: { id: r.id }}])
+            }}}/>;
         case 'recipe':
-          return <RecipeView {...config?.arguments}/>;
+          return <RecipeView {...{id: 0, ...config?.arguments}}/>;
         case 'stock':
           return <StockView {...config?.arguments}/>;
         case 'publicChat':
@@ -185,7 +190,7 @@ export const Content: FC<Props> = ({config, parent}) => {
             <AddListing
               name={'Recipe'}
               opts={<>search:  <input size={10} value={newRecipeSearch} onChange={e => setNewRecipeSearch(e.target.value)}/></>}
-              onClick={() => setDashNode(config, [{...config, name:`Recipe: ${newRecipeSearch}`, component: 'recipe', arguments: { search: newRecipeSearch}}])}
+              onClick={() => setDashNode(config, [{...config, name:`Recipe: ${newRecipeSearch}`, component: 'recipe-search', arguments: { search: newRecipeSearch}}])}
             />
             <AddListing
               name={'Stock'}
@@ -208,7 +213,7 @@ export const Content: FC<Props> = ({config, parent}) => {
           </div>;
       }
     })()}
-  </div>
+  </div></div>
     <div className={'panel-right-shim'} onMouseDown={e => startResize(e, config, 'vertical')}/>
     <div className={'panel-bottom-shim'} onMouseDown={e => startResize(e, config, 'horizontal')}/>
   </div>;

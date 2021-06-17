@@ -9,7 +9,6 @@ export const $Stock = {
         },
         name: {
             type: 'string',
-            isRequired: true,
         },
         name_short: {
             type: 'string',
@@ -17,11 +16,9 @@ export const $Stock = {
         },
         sector: {
             type: 'string',
-            isRequired: true,
         },
         industry: {
             type: 'string',
-            isRequired: true,
         },
         logo_url: {
             type: 'string',
@@ -40,7 +37,6 @@ export const $Stock = {
         },
         price: {
             type: 'number',
-            isRequired: true,
         },
         change: {
             type: 'number',

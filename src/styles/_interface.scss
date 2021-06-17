@@ -168,6 +168,35 @@ nav {
     box-sizing:border-box;
 }
 
+.error {
+  margin:0;
+  padding:.5em;
+  background:darken($main-red, 50%);
+  color:$main-red;
+}
+.spinner {
+  display: flex;
+  flex-direction: row;
+  color: darken($main-font,40%);
+  padding-top:1em;
+  &:before {
+    display:inline-block;
+    content: '߷';
+    margin-top:-.58em;
+    margin-right:.2em;
+    font-size:250%;
+    color:$main-highlight;
+    transform-origin: 50% 58%; // really?
+    animation: spin 800ms infinite forwards linear;
+  }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+
+
 .modal-screen {
   position: absolute;
   top:0;

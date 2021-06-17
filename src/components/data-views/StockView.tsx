@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import useApiMethod from '../../hooks/useApiMethod';
 import { Stock, StocksService } from '../../openapi';
 import { SeriesData, StockChart } from '../charts/StockChart';
+import { Spinner, Error } from '../interface';
 import { Number } from '../util/Number';
 
 type Props = {
@@ -48,11 +49,11 @@ export const StockView: FC<Props> = ({data, ticker: tick}) => {
   }, [stock]);
 
   if(inProgress) {
-    return <>Loading...</>;
+    return <Spinner text={'loading...'}/>;
   } else if(error) {
-    return <div><strong style={{color:'red'}}>Error:</strong> {error}</div>;
+    return <Error e={error}/>;
   } else if(!stock) {
-    return <div><strong style={{color:'red'}}>Error:</strong> unable to load stock</div>;
+    return <Error e={'unable to load stock'}/>;
   } else {
     return <>
       <div style={{display: 'flex', flexDirection: 'column', margin: '.25em'}}>

@@ -21,7 +21,6 @@ export const $Ingredient = {
         },
         consistency: {
             type: 'string',
-            isRequired: true,
         },
         original: {
             type: 'string',

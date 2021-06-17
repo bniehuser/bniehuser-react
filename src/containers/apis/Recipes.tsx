@@ -1,32 +1,28 @@
 import React, { FC, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { RecipeView } from '../../components/data-views/RecipeView';
+import { Spinner } from '../../components/interface/Spinner';
+import { Error } from '../../components/interface/Error';
 import useApiMethod from '../../hooks/useApiMethod';
 import { Recipe, RecipesService } from '../../openapi';
+import { recipesState } from '../../state/recipes';
 
 export const Recipes: FC = () => {
   const [recipe, setRecipe] = useState<Recipe|undefined>(undefined);
-  const {request: getRandomRecipe, inProgress, error} = useApiMethod(RecipesService.getRandomRecipeRecipesRandomGet);
+  const [recipes, setRecipes] = useRecoilState(recipesState);
+  const data = useApiMethod(RecipesService.getRandomRecipeRecipesRandomGet);
+  const getRandomRecipe = () => {
+    data.request().then(r => {
+      if(r) {
+        setRecipes({...recipes, [r.id]: r});
+        setRecipe(r);
+      }
+    }).catch(e => console.error(e))
+  }
   return <div>
-    <button onClick={async () => setRecipe(await getRandomRecipe())}>Get a random recipe</button>
-    {inProgress ? 'Loading...' : (error ? <></> : recipe && (
-      <div className={'interface'} style={{padding:'2em'}}>
-        <h2>{recipe.title}</h2>
-        <div style={{display:'flex', flexDirection:'row'}}>
-          <div><img src={recipe.image} alt={recipe.title} style={{maxWidth:'480px',margin:'0 1em 1em 0'}}/></div>
-        <div dangerouslySetInnerHTML={{__html: recipe.summary}}/>
-        </div>
-        <h3>Ingredients</h3>
-        <ul>{recipe.ingredients.map(i => <li><strong>{i.amount} {i.unit}</strong> {i.original_name}</li>)}</ul>
-        {recipe.instructions || recipe.full_instructions?.length ? <>
-        <h3>Instructions</h3>
-        <div dangerouslySetInnerHTML={{__html: recipe.instructions}}/>
-        {recipe.full_instructions.map(i => <div>
-          {i.name && <h4>{i.name}</h4>}
-          <ul style={{listStyle:'none'}}>
-          {i.steps.map(s => <li><strong>{s.number})</strong> {s.step}</li>)}
-          </ul>
-        </div>)}
-        </> : ''}
-      </div>
-    ))}
+    <button onClick={() => getRandomRecipe()}>Get a random recipe</button>
+    {data.inProgress && <Spinner text={'loading...'}/>}
+    {data.error && <Error e={data.error}/>}
+    {recipe && <RecipeView id={recipe.id}/>}
   </div>;
 }
