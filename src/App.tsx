@@ -10,10 +10,9 @@ import './toastify.css';
 import { SocketProvider, useSocket } from './context/SocketContext';
 import { OpenAPI } from './openapi';
 
-OpenAPI.BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000'; // THIS SHOULD BE AN ENV VAR
+OpenAPI.BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const App: FC = () => {
-
   const socket = useSocket();
 
   return (
@@ -21,21 +20,23 @@ const App: FC = () => {
       <SocketProvider>
         <div className="main">
           <header>
-            <h1><Link to={'/'}>bniehuser.com</Link></h1>
+            <h1>
+              <Link to={'/'}>bniehuser.com</Link>
+            </h1>
           </header>
           <section id={'body'}>
             <section id={'sidebar'}>
-              <Menu/>
+              <Menu />
             </section>
             <section id={'content'}>
-              <Routes/>
+              <Routes />
             </section>
           </section>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
       </SocketProvider>
     </RecoilRoot>
   );
-}
+};
 
 export default App;

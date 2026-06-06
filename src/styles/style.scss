@@ -1,10 +1,10 @@
-@import "common";
-@import "interface";
-@import "icons";
-@import "code";
-@import "form";
-@import "dashboard";
-@import "chat";
+@import 'common';
+@import 'interface';
+@import 'icons';
+@import 'code';
+@import 'form';
+@import 'dashboard';
+@import 'chat';
 
 // fonts
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100..700&family=JetBrains+Mono:wght@100..700');
@@ -15,30 +15,30 @@
   box-sizing: border-box;
 }
 
-
 // init
-html, body, #root {
-  margin:0;
-  padding:0;
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
   background: $main-background;
   color: $main-font;
   min-height: 100vh;
 }
 
-
 @keyframes embolden {
   0% {
     font-variation-settings: 'wght' 100;
-    color:$main-font;
+    color: $main-font;
   }
   60% {
     font-variation-settings: 'wght' 700;
-    color:lighten($main-font, 50%);
+    color: lighten($main-font, 50%);
   }
 
   100% {
     font-variation-settings: 'wght' 100;
-    color:$main-font;
+    color: $main-font;
   }
 }
 
@@ -51,7 +51,6 @@ html, body, #root {
   }
 }
 
-
 .flash {
   // font-size:120%;
   animation: embolden 2000ms infinite forwards;
@@ -60,5 +59,3 @@ html, body, #root {
 .renderFlash {
   animation: ping 500ms forwards;
 }
-
-

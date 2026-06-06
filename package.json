@@ -1,65 +1,49 @@
 {
   "name": "bniehuser-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "apexcharts": "^3.27.1",
-    "chance": "^1.1.7",
-    "discord-markdown": "^2.5.0",
-    "dotenv": "^10.0.0",
-    "node-sass": "^6.0.0",
-    "react": "^17.0.2",
-    "react-apexcharts": "^1.3.9",
-    "react-dom": "^17.0.2",
-    "react-highlight": "^0.14.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "react-toastify": "^7.0.4",
-    "react-use-websocket": "^2.7.1",
-    "recoil": "^0.3.1",
-    "typescript": "^4.1.2",
-    "wavefunctioncollapse": "^2.1.0",
-    "web-vitals": "^1.0.1",
-    "websocket": "^1.0.34"
-  },
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "start": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "codegen": "openapi --input http://localhost:8000/api/v1/openapi.json --output ./src/openapi --exportSchemas true --useUnionTypes --useOptions"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "apexcharts": "^4.4.0",
+    "chance": "^1.1.12",
+    "discord-markdown": "^2.5.1",
+    "react": "^19.0.0",
+    "react-apexcharts": "^1.7.0",
+    "react-dom": "^19.0.0",
+    "react-highlight": "^0.15.0",
+    "react-router-dom": "^7.1.0",
+    "react-toastify": "^11.0.0",
+    "react-use-websocket": "^4.11.0",
+    "recoil": "^0.7.7",
+    "wavefunctioncollapse": "^2.1.0"
   },
   "devDependencies": {
-    "@types/chance": "^1.1.2",
-    "@types/react-highlight": "^0.12.2",
-    "@types/react-router-dom": "^5.1.7",
-    "@types/websocket": "^1.0.2",
-    "openapi-typescript-codegen": "^0.9.3",
-    "sass-loader": "^12.0.0"
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@types/chance": "^1.1.6",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/react-highlight": "^0.12.8",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.0",
+    "openapi-typescript-codegen": "^0.29.0",
+    "prettier": "^3.8.3",
+    "sass": "^1.83.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vitest": "^2.1.8"
   }
 }

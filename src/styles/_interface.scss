@@ -1,6 +1,11 @@
-@import "common";
+@import 'common';
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Libre Franklin', sans-serif;
   font-variation-settings: 'wght' 800;
   color: $main-highlight;
@@ -8,87 +13,122 @@ h1, h2, h3, h4, h5, h6 {
 }
 h1 {
   &:after {
-    display:block;
-    content:'';
-    height:2px;
-    width:100%;
+    display: block;
+    content: '';
+    height: 2px;
+    width: 100%;
     background: linear-gradient(90deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
     //background: linear-gradient(90deg, blue 0%, red 100%);
   }
 }
 
 header h1 {
-  &:before { content: ''; width: 1.8em; height: 1.8em; margin-right:.3em; background: url('robot.png'); background-size:100%; border-radius:50%; position:absolute;zIndex:-1; }
-  zIndex:1;
-  font-size: 300%;margin:0;
-  a { padding-left:2em;zIndex:1;position:relative;line-height:1.6em; }
-  a:hover { background: none; }
+  &:before {
+    content: '';
+    width: 1.8em;
+    height: 1.8em;
+    margin-right: 0.3em;
+    background: url('robot.png');
+    background-size: 100%;
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+  }
+  z-index: 1;
+  font-size: 300%;
+  margin: 0;
+  a {
+    padding-left: 2em;
+    z-index: 1;
+    position: relative;
+    line-height: 1.6em;
+  }
+  a:hover {
+    background: none;
+  }
 }
 
-header, section {
-  padding: .5em 1em 0;
+header,
+section {
+  padding: 0.5em 1em 0;
 }
 
 #body {
-  display:flex;
-  flex-direction:row;
-  padding:0;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
 }
 #content {
   padding-top: 1.5em;
-  width:100%;
+  width: 100%;
 }
 #sidebar {
   padding: 1.5em 1em 1em;
   margin-right: 1em;
-  width:200px;
-  min-width:200px;
-  position:relative;
+  width: 200px;
+  min-width: 200px;
+  position: relative;
   &:after {
-    display:block;
-    position:absolute;
-    right:0;
-    top:0;
-    content:'';
-    width:2px;
-    height:100%;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    content: '';
+    width: 2px;
+    height: 100%;
     background: linear-gradient(180deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
   }
 }
 
 @media only screen and (max-width: 768px) {
-  #body { flex-direction:column; }
-  header { padding:0; }
+  #body {
+    flex-direction: column;
+  }
+  header {
+    padding: 0;
+  }
   #sidebar {
-    h3 { display:none; }
-    nav { display:block; }
-    ul { display:block; }
-    padding:0;
-    width:100%;
-    text-align:center;
+    h3 {
+      display: none;
+    }
+    nav {
+      display: block;
+    }
+    ul {
+      display: block;
+    }
+    padding: 0;
+    width: 100%;
+    text-align: center;
     li {
       display: inline-block;
-      position:relative;
-      a { display:block; margin:0; padding:.25em 1em !important; }
+      position: relative;
+      a {
+        display: block;
+        margin: 0;
+        padding: 0.25em 1em !important;
+      }
       &:after {
-        display:block;
-        position:absolute;
-        right:0px;
-        top:0px;
-        height:.5em;
-        content:'';
-        width:2px;
-        height:100%;
+        display: block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        height: 0.5em;
+        content: '';
+        width: 2px;
+        height: 100%;
         background: linear-gradient(180deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
       }
-      &:last-child:after { content: none; }
+      &:last-child:after {
+        content: none;
+      }
     }
     &:after {
-      display:block;
-      position:relative;
-      content:'';
-      height:2px;
-      width:100%;
+      display: block;
+      position: relative;
+      content: '';
+      height: 2px;
+      width: 100%;
       background: linear-gradient(90deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
       //background: linear-gradient(90deg, blue 0%, red 100%);
     }
@@ -98,13 +138,14 @@ header, section {
 a {
   text-decoration: none;
   color: $main-highlight;
-  &:hover { background: darken($main-background, 2%)}
+  &:hover {
+    background: darken($main-background, 2%);
+  }
 }
 
 nav {
-
   h3 {
-    margin-bottom: .25em;
+    margin-bottom: 0.25em;
   }
   ul {
     list-style: none;
@@ -116,15 +157,23 @@ nav {
 
       a {
         display: block;
-        padding: .25em;
+        padding: 0.25em;
 
         &:hover {
-          background: linear-gradient(90deg, darken($main-background, 2%) 25%, fade-out($main-font, 1) 100%);
+          background: linear-gradient(
+            90deg,
+            darken($main-background, 2%) 25%,
+            fade-out($main-font, 1) 100%
+          );
           font-weight: bold;
         }
         &.active {
-          background: linear-gradient(90deg, darken($main-background, 5%) 25%, fade-out($main-font, 1) 100%);
-//          background: darken($main-background, 5%);
+          background: linear-gradient(
+            90deg,
+            darken($main-background, 5%) 25%,
+            fade-out($main-font, 1) 100%
+          );
+          //          background: darken($main-background, 5%);
           font-weight: bold;
         }
       }
@@ -137,100 +186,103 @@ nav {
         background: linear-gradient(90deg, $dark-highlight 25%, fade-out($main-font, 1) 100%);
         //background: linear-gradient(90deg, blue 0%, red 100%);
       }
-      &:last-child:after { content: none; }
-
+      &:last-child:after {
+        content: none;
+      }
     }
   }
 }
 
 .container {
-  background-color: fade_out($main-background, .3);
-  position:relative;
-  margin:0;
+  background-color: fade_out($main-background, 0.3);
+  position: relative;
+  margin: 0;
   &.sidebar {
     height: 100%;
   }
 }
 
 .window {
-  border-radius:.5em;
-  position:absolute;
+  border-radius: 0.5em;
+  position: absolute;
 }
 
 .interface {
-    width:calc(100% - 1em);
-    height:calc(100% - 1em);
-    margin:.5em;
-    padding:.5em;
-    border:1px solid $main-font;
-    background-color: $main-background;
-    border-radius:.5em;
-    box-sizing:border-box;
+  width: calc(100% - 1em);
+  height: calc(100% - 1em);
+  margin: 0.5em;
+  padding: 0.5em;
+  border: 1px solid $main-font;
+  background-color: $main-background;
+  border-radius: 0.5em;
+  box-sizing: border-box;
 }
 
 .error {
-  margin:0;
-  padding:.5em;
-  background:darken($main-red, 50%);
-  color:$main-red;
+  margin: 0;
+  padding: 0.5em;
+  background: darken($main-red, 50%);
+  color: $main-red;
 }
 .spinner {
   display: flex;
   flex-direction: row;
-  color: darken($main-font,40%);
-  padding-top:1em;
+  color: darken($main-font, 40%);
+  padding-top: 1em;
   &:before {
-    display:inline-block;
+    display: inline-block;
     content: '߷';
-    margin-top:-.58em;
-    margin-right:.2em;
-    font-size:250%;
-    color:$main-highlight;
+    margin-top: -0.58em;
+    margin-right: 0.2em;
+    font-size: 250%;
+    color: $main-highlight;
     transform-origin: 50% 58%; // really?
     animation: spin 800ms infinite forwards linear;
   }
 }
 @keyframes spin {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg) }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
-
 
 .modal-screen {
   position: absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  width:100vw;
-  height:100vh;
-  background: rgba(0,0,0,.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   .interface {
-    width:auto;
-    min-width:33%;
-    margin:auto;
-    height:auto;
+    width: auto;
+    min-width: 33%;
+    margin: auto;
+    height: auto;
   }
 }
 
 .date-note {
-  color:darken($main-font, 25%);
-  font-size:85%;
-  margin-right:.5rem;
+  color: darken($main-font, 25%);
+  font-size: 85%;
+  margin-right: 0.5rem;
 }
 
 .svg-icon {
-  height:1.2rem;
-  line-height:1rem;
-  margin-right:-.3rem;
-  margin-top:-.25rem;
-  margin-bottom:.45rem;
-  transform:translateY(.6rem);
-  stroke-width: .05rem;
+  height: 1.2rem;
+  line-height: 1rem;
+  margin-right: -0.3rem;
+  margin-top: -0.25rem;
+  margin-bottom: 0.45rem;
+  transform: translateY(0.6rem);
+  stroke-width: 0.05rem;
   stroke: $main-font;
   //fill: #FF0000; // rgba(0,0,0,0);
   //path {
@@ -240,34 +292,31 @@ nav {
 }
 
 .tooltipContainer {
-  position:relative;
-  display:inline-block;
-  font-weight:initial;
+  position: relative;
+  display: inline-block;
+  font-weight: initial;
   animation: none;
 }
 
 button {
   background: transparent;
-  border-radius: .5em;
-  padding: .5rem;
+  border-radius: 0.5em;
+  padding: 0.5rem;
   border: 1px solid $main-font;
   color: $main-font;
-  margin: .5rem;
+  margin: 0.5rem;
   display: inline-block;
   &:hover {
-    background:fade_out($main-font, .66);
-    color:lighten($main-font, 15%);
+    background: fade_out($main-font, 0.66);
+    color: lighten($main-font, 15%);
   }
 }
 
 .callout {
   background: darken($main-background, 5%);
-  margin:0 0 1em 0;
-  padding:1em;
+  margin: 0 0 1em 0;
+  padding: 1em;
 }
-
-$if-dark: fade_out(darken($main-background, 50%), .5);
-$if-light: fade_out(darken($main-font, 30%), .5);
 
 .scrollable {
   overflow-x: hidden;
@@ -275,7 +324,7 @@ $if-light: fade_out(darken($main-font, 30%), .5);
   scrollbar-width: thin;
   scrollbar-color: $if-dark $if-light;
   &::-webkit-scrollbar {
-    width: .5rem;
+    width: 0.5rem;
   }
 
   &::-webkit-scrollbar-track {
@@ -301,46 +350,46 @@ $if-light: fade_out(darken($main-font, 30%), .5);
     box-sizing: content-box;
   }
   .progress-min-label {
-    font-size:80%;
-    margin:0;
-    padding:0;
+    font-size: 80%;
+    margin: 0;
+    padding: 0;
     &.feature {
       position: absolute;
-      top: .65em;
+      top: 0.65em;
       left: 0;
-      padding-left:2em;
-      transform:translateX(-50%);
+      padding-left: 2em;
+      transform: translateX(-50%);
     }
   }
   .progress-current {
     height: 1em;
     border-radius: 1rem;
     background: $main-green;
-    margin:-1px;
+    margin: -1px;
     border: 1px solid $main-font;
     position: relative;
     .progress-current-label {
-      font-size:80%;
-      margin:0;
-      padding:0;
+      font-size: 80%;
+      margin: 0;
+      padding: 0;
       &.feature {
         position: absolute;
         bottom: -2em;
         right: 0;
-        transform:translateX(50%);
+        transform: translateX(50%);
       }
     }
   }
   .progress-max-label {
-    font-size:80%;
-    margin:0;
-    padding:0;
+    font-size: 80%;
+    margin: 0;
+    padding: 0;
     &.feature {
       position: absolute;
-      top: .65em;
+      top: 0.65em;
       right: 0;
-      padding-right:2em;
-      transform:translateX(50%);
+      padding-right: 2em;
+      transform: translateX(50%);
     }
   }
 }
@@ -367,47 +416,57 @@ $if-light: fade_out(darken($main-font, 30%), .5);
   height: 100%;
 }
 
-$highlight: rgba(232,232,32,.7);
+$highlight: rgba(232, 232, 32, 0.7);
 .personMarker {
-  position:absolute;
-  z-index:10;
+  position: absolute;
+  z-index: 10;
   border-radius: 50%;
-  padding:0;margin:0;
-  line-height:1.1em;
+  padding: 0;
+  margin: 0;
+  line-height: 1.1em;
   cursor: default;
   overflow: visible;
   &:hover {
-    box-shadow:0 0 .2em .1em $highlight;
-    background:$highlight;
+    box-shadow: 0 0 0.2em 0.1em $highlight;
+    background: $highlight;
   }
   &:after {
-    content:'';
-    font-size:50%;
-    top:0;
-    left:0;
-    transform:translate(115%,-35%);
-    position:absolute;
+    content: '';
+    font-size: 50%;
+    top: 0;
+    left: 0;
+    transform: translate(115%, -35%);
+    position: absolute;
   }
-  &.speech:after { content: '\01F4AC'; }
+  &.speech:after {
+    content: '\01F4AC';
+  }
 }
-
 
 .simpleMenu {
   list-style: none;
   padding: 0;
   margin: 0;
   li {
-    padding: 0; margin: 0;
+    padding: 0;
+    margin: 0;
     border-bottom: 1px solid darken($main-font, 15%);
     a {
       color: $main-font;
       text-decoration: none;
       font-variation-settings: 'wght' 600;
-      padding:.25rem;
-      display:block;
-      &:hover { background-color: fade-out($highlight, .7)}
-      &:active, &.selected { background-color: fade-out($highlight, .6)}
+      padding: 0.25rem;
+      display: block;
+      &:hover {
+        background-color: fade-out($highlight, 0.7);
+      }
+      &:active,
+      &.selected {
+        background-color: fade-out($highlight, 0.6);
+      }
     }
   }
-  li:last-child { border-bottom: none; }
+  li:last-child {
+    border-bottom: none;
+  }
 }

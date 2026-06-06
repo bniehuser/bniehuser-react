@@ -1,10 +1,14 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { OverlappingModel } from 'wavefunctioncollapse';
 
-const drawGrid = (ctx: CanvasRenderingContext2D, divisions: number, divisionsy: number|undefined = undefined) => {
+const drawGrid = (
+  ctx: CanvasRenderingContext2D,
+  divisions: number,
+  divisionsy: number | undefined = undefined,
+) => {
   const xdiv = ctx.canvas.width / divisions;
   const ydiv = ctx.canvas.height / (divisionsy || divisions);
-  ctx.lineWidth = .1;
+  ctx.lineWidth = 0.1;
   ctx.strokeStyle = '#666';
   ctx.beginPath();
   Array.from(Array(Math.max(divisions, divisionsy || 0))).forEach((_, i) => {
@@ -22,7 +26,12 @@ const drawGrid = (ctx: CanvasRenderingContext2D, divisions: number, divisionsy: 
   ctx.stroke();
 };
 
-const drawContent = (ctx: CanvasRenderingContext2D, size: [number, number], content: SparseArray, palette: Color[]) => {
+const drawContent = (
+  ctx: CanvasRenderingContext2D,
+  size: [number, number],
+  content: SparseArray,
+  palette: Color[],
+) => {
   for (let x = 0; x < size[0]; x++) {
     if (content[x]?.length) {
       for (let y = 0; y < size[1]; y++) {
@@ -39,7 +48,7 @@ const drawContent = (ctx: CanvasRenderingContext2D, size: [number, number], cont
 };
 
 type Color = [number, number, number, number];
-type SparseArray = ((number|undefined)[]|undefined)[];
+type SparseArray = ((number | undefined)[] | undefined)[];
 
 const componentToHex = (c: number): string => {
   const hex = c.toString(16);
@@ -53,12 +62,7 @@ const rgbToHex = (r: number, g: number, b: number): string => {
 const hexToRgb = (hex: string): Color => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!result) throw new Error('bad hex value: ' + hex);
-  return [
-    parseInt(result[1], 16),
-    parseInt(result[2], 16),
-    parseInt(result[3], 16),
-    255,
-  ];
+  return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16), 255];
 };
 
 const toRgb = (c: Color) => {
@@ -67,7 +71,15 @@ const toRgb = (c: Color) => {
 
 const VIEW_SCALE = 16; // visual pixels per actual pixel
 
-const inputToOutput = (input: SparseArray, size: [number, number], outputSize: [number, number], sample: number, inTile: boolean, outTile: boolean, mirror: number): SparseArray => {
+const inputToOutput = (
+  input: SparseArray,
+  size: [number, number],
+  outputSize: [number, number],
+  sample: number,
+  inTile: boolean,
+  outTile: boolean,
+  mirror: number,
+): SparseArray => {
   const na = [];
   for (let y = 0; y < size[1]; y++) {
     for (let x = 0; x < size[0]; x++) {
@@ -77,7 +89,17 @@ const inputToOutput = (input: SparseArray, size: [number, number], outputSize: [
     }
   }
   const imgPx = new Uint8ClampedArray(na);
-  const t = new OverlappingModel(imgPx, size[0], size[1], sample, outputSize[0], outputSize[1], inTile, outTile, mirror);
+  const t = new OverlappingModel(
+    imgPx,
+    size[0],
+    size[1],
+    sample,
+    outputSize[0],
+    outputSize[1],
+    inTile,
+    outTile,
+    mirror,
+  );
   let tries = 0;
   let s = false;
   while (!s && tries < 10) {
@@ -101,7 +123,12 @@ const inputToOutput = (input: SparseArray, size: [number, number], outputSize: [
   return [];
 };
 
-const drawTiled = (ctx: CanvasRenderingContext2D, size: [number, number], data: SparseArray, palette: Color[]) => {
+const drawTiled = (
+  ctx: CanvasRenderingContext2D,
+  size: [number, number],
+  data: SparseArray,
+  palette: Color[],
+) => {
   // make imageData from SparseArray
   const na = [];
   for (let y = 0; y < size[1]; y++) {
@@ -124,27 +151,36 @@ const drawTiled = (ctx: CanvasRenderingContext2D, size: [number, number], data: 
 };
 
 type WFCParams = {
-  sample: number,
-  inTile: boolean,
-  outTile: boolean,
-  mirror: number,
-  ground: number,
+  sample: number;
+  inTile: boolean;
+  outTile: boolean;
+  mirror: number;
+  ground: number;
 };
 
 export const WaveFunctionCollapse: FC = () => {
-
   const [inputSize, setInputSize] = useState<[number, number]>([8, 8]);
-  const [inputCtx, setInputCtx] = useState<CanvasRenderingContext2D|undefined>(undefined);
+  const [inputCtx, setInputCtx] = useState<CanvasRenderingContext2D | undefined>(undefined);
   const [inputArray, setInputArray] = useState<SparseArray>([]);
   const [outputSize, setOutputSize] = useState<[number, number]>([32, 32]);
-  const [outputCtx, setOutputCtx] = useState<CanvasRenderingContext2D|undefined>(undefined);
+  const [outputCtx, setOutputCtx] = useState<CanvasRenderingContext2D | undefined>(undefined);
   const [outputArray, setOutputArray] = useState<SparseArray>([]);
-  const [tiledCtx, setTiledCtx] = useState<CanvasRenderingContext2D|undefined>(undefined);
+  const [tiledCtx, setTiledCtx] = useState<CanvasRenderingContext2D | undefined>(undefined);
   const [gridLines, setGridLines] = useState<boolean>(true);
-  const [palette, setPalette] = useState<Color[]>([[255, 255, 255, 255], [0, 0, 0, 255], [128, 128, 128, 255]]);
+  const [palette, setPalette] = useState<Color[]>([
+    [255, 255, 255, 255],
+    [0, 0, 0, 255],
+    [128, 128, 128, 255],
+  ]);
   const [selectedPalette, setSelectedPalette] = useState<number>(0);
   const [mouseDown, setMouseDown] = useState<boolean>(false);
-  const [params, setParams] = useState<WFCParams>({sample: 3, inTile: true, outTile: true, mirror: 8, ground: 0});
+  const [params, setParams] = useState<WFCParams>({
+    sample: 3,
+    inTile: true,
+    outTile: true,
+    mirror: 8,
+    ground: 0,
+  });
 
   const draw = useCallback(() => {
     if (inputCtx) {
@@ -173,7 +209,10 @@ export const WaveFunctionCollapse: FC = () => {
     setOutputCtx(wfcOutput.getContext('2d') as CanvasRenderingContext2D);
     setTiledCtx(wfcTiled.getContext('2d') as CanvasRenderingContext2D);
     fillInputArray(inputSize, 0);
-    const mouseDownHandler = (e: MouseEvent) => { e.stopPropagation(); setMouseDown(true); };
+    const mouseDownHandler = (e: MouseEvent) => {
+      e.stopPropagation();
+      setMouseDown(true);
+    };
     const mouseUpHandler = () => setMouseDown(false);
     wfcInput.addEventListener('mousedown', mouseDownHandler);
     document.addEventListener('mouseup', mouseUpHandler);
@@ -199,68 +238,216 @@ export const WaveFunctionCollapse: FC = () => {
       setInputArray([...inputArray]);
     }
   };
-  const fillInputArray = (size: [number, number], color: number) => setInputArray(Array.from(Array(size[0])).map(x => Array.from(Array(size[1])).map(y => inputArray[x]?.[y] || color)));
+  const fillInputArray = (size: [number, number], color: number) =>
+    setInputArray(
+      Array.from(Array(size[0])).map((x) =>
+        Array.from(Array(size[1])).map((y) => inputArray[x]?.[y] || color),
+      ),
+    );
 
-  return <div className={'interface'}>
-    <h2>Wave Function Collapse</h2>
-    <p>An interesting tool I wrote when experimenting with procedural generation.  the sample image at left is used to generate a 'locally similar' expanded version on the right.
-      This can be used to generate all kinds of random content for textures or tilemaps.  Try using two or more colors, or changing the grid sizes, and 'reduce uncertainty' to generate output.</p>
-    <div style={{display: 'flex', flexDirection: 'column'}}>
-      <div style={{padding: '.5em', display: 'flex', alignContent: 'center'}}>
-        {palette.map((c, i) => <div key={'p_' + i} style={{display: 'inline-block', cursor: 'pointer', textAlign: 'center', marginRight: '.25em', padding: '.25em', borderRadius: '.5em', border: '1px solid #666', background: i === selectedPalette ? '#666' : ''}} onClick={() => setSelectedPalette(i)}>
-          <input type='color' value={toRgb(c)} onChange={e => {
-            palette[i] = hexToRgb(e.target.value);
-            setPalette([...palette]);
-          }}/><br/>
-          {i === selectedPalette ? '🎨' : <>&nbsp;</>}
-        </div>)}
-        <span style={{borderRadius: '.5em', background: '#666', cursor: 'pointer'}} onClick={() => setPalette([...palette, [255, 255, 255, 255]])}>➕🌈</span>
-      </div>
-      <div>
-      <button style={{padding: '.25em .5em'}} onClick={() => {setInputSize([8, 8]); setOutputSize([32, 32]); fillInputArray([8, 8], 0); }}>small</button>
-      <button style={{padding: '.25em .5em'}} onClick={() => {setInputSize([12, 12]); setOutputSize([48, 48]); fillInputArray([12, 12], 0); }}>med</button>
-      <button style={{padding: '.25em .5em'}} onClick={() => {setInputSize([16, 16]); setOutputSize([64, 64]); fillInputArray([16, 16], 0); }}>big</button>
-      Grid? <input type={'checkbox'} checked={gridLines} onChange={e => setGridLines(e.target.checked)}/>
-      </div>
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-        <div style={{padding: '.5em'}}>
-          <div style={{marginBottom: '.5em'}}>
-            <input style={{width: '4em'}} type={'number'} value={inputSize[0]} onChange={e => setInputSize([parseInt(e.target.value, 10) || 1, inputSize[1]])}/>&nbsp;
-            x <input style={{width: '4em'}} type={'number'} value={inputSize[1]} onChange={e => setInputSize([inputSize[0], parseInt(e.target.value, 10) || 1])}/>
-          </div>
-          <canvas id={'wfcInput'} style={{border: '3px solid #666'}} width={VIEW_SCALE * inputSize[0]} height={VIEW_SCALE * inputSize[1]} onMouseMove={e => { if (mouseDown) clickInput(e); }}/>
+  return (
+    <div className={'interface'}>
+      <h2>Wave Function Collapse</h2>
+      <p>
+        An interesting tool I wrote when experimenting with procedural generation. the sample image
+        at left is used to generate a 'locally similar' expanded version on the right. This can be
+        used to generate all kinds of random content for textures or tilemaps. Try using two or more
+        colors, or changing the grid sizes, and 'reduce uncertainty' to generate output.
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '.5em', display: 'flex', alignContent: 'center' }}>
+          {palette.map((c, i) => (
+            <div
+              key={'p_' + i}
+              style={{
+                display: 'inline-block',
+                cursor: 'pointer',
+                textAlign: 'center',
+                marginRight: '.25em',
+                padding: '.25em',
+                borderRadius: '.5em',
+                border: '1px solid #666',
+                background: i === selectedPalette ? '#666' : '',
+              }}
+              onClick={() => setSelectedPalette(i)}
+            >
+              <input
+                type="color"
+                value={toRgb(c)}
+                onChange={(e) => {
+                  palette[i] = hexToRgb(e.target.value);
+                  setPalette([...palette]);
+                }}
+              />
+              <br />
+              {i === selectedPalette ? '🎨' : <>&nbsp;</>}
+            </div>
+          ))}
+          <span
+            style={{ borderRadius: '.5em', background: '#666', cursor: 'pointer' }}
+            onClick={() => setPalette([...palette, [255, 255, 255, 255]])}
+          >
+            ➕🌈
+          </span>
         </div>
-        <div style={{padding: '.5em', width: 'auto'}} className={'interface'}>
-          <div style={{marginBottom: '.5em'}}>
-            Sample: <input type={'number'} min={1} max={8} style={{width: '4em'}} value={params.sample} onChange={e => setParams({...params, sample: parseInt(e.target.value, 10)})}/>
-          </div>
-          <div style={{marginBottom: '.5em'}}>
-            Mirror: <input type={'number'} min={0} max={8} style={{width: '4em'}} value={params.mirror} onChange={e => setParams({...params, mirror: parseInt(e.target.value, 10)})}/>
-          </div>
-          <div style={{marginBottom: '.5em'}}>
-            Input Tiled? <input type={'checkbox'} checked={params.inTile} onChange={e => setParams({...params, inTile: e.target.checked})}/>
-          </div>
-          <div style={{marginBottom: '.5em'}}>
-            Output Tiled? <input type={'checkbox'} checked={params.outTile} onChange={e => setParams({...params, outTile: e.target.checked})}/>
-          </div>
-          <button onClick={() => {
-            setOutputArray(inputToOutput(inputArray, inputSize, outputSize, params.sample, params.inTile, params.outTile, params.mirror));
-          }}>reduce uncertainty</button>
+        <div>
+          <button
+            style={{ padding: '.25em .5em' }}
+            onClick={() => {
+              setInputSize([8, 8]);
+              setOutputSize([32, 32]);
+              fillInputArray([8, 8], 0);
+            }}
+          >
+            small
+          </button>
+          <button
+            style={{ padding: '.25em .5em' }}
+            onClick={() => {
+              setInputSize([12, 12]);
+              setOutputSize([48, 48]);
+              fillInputArray([12, 12], 0);
+            }}
+          >
+            med
+          </button>
+          <button
+            style={{ padding: '.25em .5em' }}
+            onClick={() => {
+              setInputSize([16, 16]);
+              setOutputSize([64, 64]);
+              fillInputArray([16, 16], 0);
+            }}
+          >
+            big
+          </button>
+          Grid?{' '}
+          <input
+            type={'checkbox'}
+            checked={gridLines}
+            onChange={(e) => setGridLines(e.target.checked)}
+          />
         </div>
-        <div style={{padding: '.5em'}}>
-          <div style={{marginBottom: '.5em'}}>
-            <input style={{width: '4em'}} type={'number'} value={outputSize[0]} onChange={e => setOutputSize([parseInt(e.target.value, 10) || 1, outputSize[1]])}/>&nbsp;
-            x <input style={{width: '4em'}} type={'number'} value={outputSize[1]} onChange={e => setOutputSize([outputSize[0], parseInt(e.target.value, 10) || 1])}/>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div style={{ padding: '.5em' }}>
+            <div style={{ marginBottom: '.5em' }}>
+              <input
+                style={{ width: '4em' }}
+                type={'number'}
+                value={inputSize[0]}
+                onChange={(e) => setInputSize([parseInt(e.target.value, 10) || 1, inputSize[1]])}
+              />
+              &nbsp; x{' '}
+              <input
+                style={{ width: '4em' }}
+                type={'number'}
+                value={inputSize[1]}
+                onChange={(e) => setInputSize([inputSize[0], parseInt(e.target.value, 10) || 1])}
+              />
+            </div>
+            <canvas
+              id={'wfcInput'}
+              style={{ border: '3px solid #666' }}
+              width={VIEW_SCALE * inputSize[0]}
+              height={VIEW_SCALE * inputSize[1]}
+              onMouseMove={(e) => {
+                if (mouseDown) clickInput(e);
+              }}
+            />
           </div>
-          <canvas id={'wfcOutput'} style={{border: '3px solid #666'}} width={VIEW_SCALE * outputSize[0]} height={VIEW_SCALE * outputSize[1]}/>
-        </div>
-        <div style={{padding: '.5em', display: outputArray.length ? '' : 'none'}}>
-          <canvas id={'wfcTiled'} style={{transform: 'scale(2)', transformOrigin: '0 0', border: '3px solid #666'}} width={3 * outputSize[0]} height={3 * outputSize[1]}/>
-          <pre style={{paddingTop: '12em'}}>
-            {`const drawArray = [\n${inputArray.map(l => `  [${l?.join(', ')}],`).join(`\n`)}\n];`}
-          </pre>
+          <div style={{ padding: '.5em', width: 'auto' }} className={'interface'}>
+            <div style={{ marginBottom: '.5em' }}>
+              Sample:{' '}
+              <input
+                type={'number'}
+                min={1}
+                max={8}
+                style={{ width: '4em' }}
+                value={params.sample}
+                onChange={(e) => setParams({ ...params, sample: parseInt(e.target.value, 10) })}
+              />
+            </div>
+            <div style={{ marginBottom: '.5em' }}>
+              Mirror:{' '}
+              <input
+                type={'number'}
+                min={0}
+                max={8}
+                style={{ width: '4em' }}
+                value={params.mirror}
+                onChange={(e) => setParams({ ...params, mirror: parseInt(e.target.value, 10) })}
+              />
+            </div>
+            <div style={{ marginBottom: '.5em' }}>
+              Input Tiled?{' '}
+              <input
+                type={'checkbox'}
+                checked={params.inTile}
+                onChange={(e) => setParams({ ...params, inTile: e.target.checked })}
+              />
+            </div>
+            <div style={{ marginBottom: '.5em' }}>
+              Output Tiled?{' '}
+              <input
+                type={'checkbox'}
+                checked={params.outTile}
+                onChange={(e) => setParams({ ...params, outTile: e.target.checked })}
+              />
+            </div>
+            <button
+              onClick={() => {
+                setOutputArray(
+                  inputToOutput(
+                    inputArray,
+                    inputSize,
+                    outputSize,
+                    params.sample,
+                    params.inTile,
+                    params.outTile,
+                    params.mirror,
+                  ),
+                );
+              }}
+            >
+              reduce uncertainty
+            </button>
+          </div>
+          <div style={{ padding: '.5em' }}>
+            <div style={{ marginBottom: '.5em' }}>
+              <input
+                style={{ width: '4em' }}
+                type={'number'}
+                value={outputSize[0]}
+                onChange={(e) => setOutputSize([parseInt(e.target.value, 10) || 1, outputSize[1]])}
+              />
+              &nbsp; x{' '}
+              <input
+                style={{ width: '4em' }}
+                type={'number'}
+                value={outputSize[1]}
+                onChange={(e) => setOutputSize([outputSize[0], parseInt(e.target.value, 10) || 1])}
+              />
+            </div>
+            <canvas
+              id={'wfcOutput'}
+              style={{ border: '3px solid #666' }}
+              width={VIEW_SCALE * outputSize[0]}
+              height={VIEW_SCALE * outputSize[1]}
+            />
+          </div>
+          <div style={{ padding: '.5em', display: outputArray.length ? '' : 'none' }}>
+            <canvas
+              id={'wfcTiled'}
+              style={{ transform: 'scale(2)', transformOrigin: '0 0', border: '3px solid #666' }}
+              width={3 * outputSize[0]}
+              height={3 * outputSize[1]}
+            />
+            <pre style={{ paddingTop: '12em' }}>
+              {`const drawArray = [\n${inputArray.map((l) => `  [${l?.join(', ')}],`).join(`\n`)}\n];`}
+            </pre>
+          </div>
         </div>
       </div>
     </div>
-  </div>;
+  );
 };

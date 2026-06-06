@@ -1,43 +1,70 @@
-@import "common";
+@import 'common';
 
 .dash-container {
-  background:darken($main-background, 50%);
-  padding:.25em;
+  background: darken($main-background, 50%);
+  padding: 0.25em;
 }
 .dash-panel {
   display: flex;
+  position: relative;
   .dash-leaf {
-    margin: .25em;
-    padding: .5em;
+    margin: 0.25em;
+    position: relative;
+    display: flex;
     background: darken($main-background, 10%);
+    & > div {
+      width: 100%;
+    }
     .dash-panel-title {
       background: darken($main-background, 15%);
-      font-family:$title-font-family;
+      font-family: $title-font-family;
       font-variation-settings: 'wght' 700;
-      border-bottom:1px solid $dark-highlight;
-      margin:-.5em -.5em .5em -.5em;
-      padding:.25em;
+      border-bottom: 1px solid $dark-highlight;
+      padding: 0.25em;
+      flex-basis: 2em;
       .dash-panel-button-tray {
-        float:right;
+        float: right;
         .hidden {
-          display:none;
+          display: none;
         }
         .dash-panel-button {
-          padding:.2rem;
-          border:0;
-          margin:0;
-          font-weight:bold;
+          padding: 0.2rem;
+          border: 0;
+          margin: 0;
+          font-weight: bold;
           &:hover {
-            background: rgba(255,255,255,.1);
+            background: rgba(255, 255, 255, 0.1);
           }
         }
         &:hover {
           .dash-panel-button {
-            display:none;
+            display: none;
           }
-          .hidden { display:inline-block; }
+          .hidden {
+            display: inline-block;
+          }
         }
       }
+    }
+    .dash-panel-content {
+      padding: 0.5em;
+      flex-basis: 100%;
+    }
+    scrollbar-width: thin;
+    scrollbar-color: $if-dark $if-light;
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $if-dark;
+      border-radius: 1rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $if-light;
+      border-radius: 1rem;
+      border: 0; // .1rem solid $if-light;
     }
   }
 }
@@ -45,12 +72,11 @@
 .dash-window {
   position: absolute;
   box-shadow: 0 0 5px 5px #1a1a1a;
-  padding:.25em;
+  padding: 0.25em;
   .dash-window-title {
-    font-family:$title-font-family;
+    font-family: $title-font-family;
     font-variation-settings: 'wght' 700;
     .dash-window-button {
-
     }
   }
 }
@@ -58,47 +84,70 @@
 .panel-selector {
   display: flex;
   flex-direction: column;
-  background:darken($main-background, 50%);
-  padding:1px;
+  background: darken($main-background, 50%);
+  padding: 1px;
   .panel-option {
-    margin:1px;
-    padding:0;
+    margin: 1px;
+    padding: 0;
     display: flex;
     flex-direction: row;
     background: darken($main-background, 10%);
     .panel-option-title {
-      padding: .5em;
-      flex-basis:200px;
-      font-family:$title-font-family;
+      padding: 0.5em;
+      flex-basis: 200px;
+      font-family: $title-font-family;
       font-variation-settings: 'wght' 700;
     }
     .panel-option-input {
-      padding: .5em;
-      flex-basis:100%;
+      padding: 0.5em;
+      flex-basis: 100%;
       input {
-        border:0;height:100%;padding:.5em 1em;border-radius:0;background:darken($main-background, 15%);color:$main-font;outline:none;
-        &::placeholder { color:darken($main-font,25%); opacity:1; }
+        border: 0;
+        height: 100%;
+        padding: 0.5em 1em;
+        border-radius: 0;
+        background: darken($main-background, 15%);
+        color: $main-font;
+        outline: none;
+        &::placeholder {
+          color: darken($main-font, 25%);
+          opacity: 1;
+        }
       }
     }
     button {
-      border:0;
-      padding:.5em 1em;
-      line-height:1em;
-      border-radius:0;
-      margin:0;
+      border: 0;
+      padding: 0.5em 1em;
+      line-height: 1em;
+      border-radius: 0;
+      margin: 0;
       background: darken($main-background, 15%);
-      &:hover { background: lighten($main-background, 5%); }
-      border-left:1px solid $dark-highlight;
-      flex-basis:100px;
+      &:hover {
+        background: lighten($main-background, 5%);
+      }
+      border-left: 1px solid $dark-highlight;
+      flex-basis: 100px;
     }
   }
 }
 
 .panel-right-shim {
-  width:.5em;margin-right:-.5em;height:100%;position:absolute;right:0;top:0;bottom:0;
+  width: 0.5em;
+  margin-right: -0.5em;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
   cursor: col-resize;
 }
 .panel-bottom-shim {
-  height:.5em;margin-bottom:-.5em;;width:100%;position:absolute;right:0;left:0;bottom:0;
+  height: 0.5em;
+  margin-bottom: -0.5em;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
   cursor: row-resize;
 }
