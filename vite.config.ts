@@ -8,7 +8,6 @@ export default defineConfig({
     open: false,
   },
   build: {
-    outDir: 'build',
     sourcemap: true,
     chunkSizeWarningLimit: 800,
     rollupOptions: {
